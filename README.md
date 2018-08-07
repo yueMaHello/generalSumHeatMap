@@ -1,7 +1,7 @@
 # General Heatmap
 This is a Nodejs web application using Arcgis Javascript API. It is a simple tool which can be modified to display any zone-to-zone matrix.
 ## Set Up
-1. If you haven't download nodejs on your computer, you need to download it and add it into PATH.
+1. If you haven't downloaded Nodejs on your computer, you need to download it and add it into PATH.
 2. Download this folder
 3. Browse to the root of the folder
 4. Open the terminal/cmd and go to the root of the App './generalHeatmap'. 
