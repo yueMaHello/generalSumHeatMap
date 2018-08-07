@@ -1,5 +1,5 @@
 # General Heatmap
-This is a Nodejs web application using Arcgis Javascript API. It is a simple tool which can be used to display any zone-to-zone matrices.
+This is a Nodejs web application using Arcgis Javascript API. It is a simple tool which can be modified to display any zone-to-zone matrix.
 ## Set Up
 1. Download this folder
 2. Browse to the root of the folder
@@ -13,6 +13,8 @@ This is a Nodejs web application using Arcgis Javascript API. It is a simple too
 ## Run
 1. 'npm start'
 2. Browse to 'https://localhost:3033'
+
+
 
 
 
