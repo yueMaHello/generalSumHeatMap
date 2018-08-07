@@ -24,24 +24,24 @@ This is a Nodejs web application using Arcgis Javascript API. It is a simple too
 
 ## Use tips:
 #### If you want to duplicate the App, change the dataset, and render the App at another port other than '3033':
-      1. Copy and paste all the content into a new folder
-      2. Change the dataset located in 'public/data' into anther one.
-      3. Open 'bin/www.js' file, and search for '3033'
-      4. Simply change '3033' to other number (3036, 5025, 4022 or such).
-      5. Then, just follow the procedure in 'Run'
+ 1. Copy and paste all the content into a new folder
+ 2. Change the dataset located in 'public/data' into anther one.
+ 3. Open 'bin/www.js' file, and search for '3033'
+ 4. Simply change '3033' to other number (3036, 5025, 4022 or such).
+ 5. Then, just follow the procedure in 'Run'
 
 #### If you want to update the TravelZoneLayer shape file:
-      1. The map layer is not stored in localhost. It is stored in the arcgis online server.
-      2. In './public/javascript/test.js', you can find the current layer: 'https://services8.arcgis.com/FCQ1UtL7vfUUEwH7/arcgis/rest/services/newestTAZ/FeatureServer/0?token=zwpope-UYmNeuAwyc7QdyY3CtnSR3zD05XyI45tDO27Xza7jjV6mY12x-jU6leaGFEN1DTvH092WhWyC5LmwHxpaVePomdQhkPd86OblRRtzO-LAzKP4mtjKJNEpS4XMpCYydXMlXN24O7H1MxUT99Ay_ztPJDRRU5ZO_uKZf-3IJDEEPVPSPTTYloiTYMGiMrup6UeuP_h4fhCFYtnHD2rzjAj2vRvBDSc5j0gIPIoi9iqMsBlkYatgXsV-gLj0'. If you want to change it to another layer, you can create you own arcgis online account and upload the layer to the arcgis server. You need to replace the url into a new one. You can also ask Sandeep to access Yue Ma's arcgis account.
+ 1. The map layer is not stored in localhost. It is stored in the arcgis online server.
+ 2. In './public/javascript/test.js', you can find the current layer: 'https://services8.arcgis.com/FCQ1UtL7vfUUEwH7/arcgis/rest/services/newestTAZ/FeatureServer/0?token=zwpope-UYmNeuAwyc7QdyY3CtnSR3zD05XyI45tDO27Xza7jjV6mY12x-jU6leaGFEN1DTvH092WhWyC5LmwHxpaVePomdQhkPd86OblRRtzO-LAzKP4mtjKJNEpS4XMpCYydXMlXN24O7H1MxUT99Ay_ztPJDRRU5ZO_uKZf-3IJDEEPVPSPTTYloiTYMGiMrup6UeuP_h4fhCFYtnHD2rzjAj2vRvBDSc5j0gIPIoi9iqMsBlkYatgXsV-gLj0'. If you want to change it to another layer, you can create you own arcgis online account and upload the layer to the arcgis server. You need to replace the url into a new one. You can also ask Sandeep to access Yue Ma's arcgis account.
 #### If you want to change the legend:
-      1. Open './public/test.js' file, search 'readerer.addBreak' to show that part of code.
-      2. Right now, the break points all are calculated based on data of zone[101]. It can adjust the legend to suit different dataset. If you want to change the break points, you could just manually change 'sort[chunkZone]' to some specific value. 
-            For exampe:
-            renderer.addBreak(0, 70, new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([255, 255, 255,0.90])));
-            renderer.addBreak(70, 150, new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([249, 238, 237,0.90])));
+1. Open './public/test.js' file, search 'readerer.addBreak' to show that part of code.
+2. Right now, the break points all are calculated based on data of zone[101]. It can adjust the legend to suit different dataset. If you want to change the break points, you could just manually change 'sort[chunkZone]' to some specific value. 
+      For exampe:
+      renderer.addBreak(0, 70, new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([255, 255, 255,0.90])));
+      renderer.addBreak(70, 150, new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([249, 238, 237,0.90])));
 #### If you want to change the legend color:
-      1. Open './public/test.js' file, search 'readerer.addBreak' to show that part of code.
-      2. Change 'new Color([255, 255, 255,0.90])' to some other RGB color.
+1. Open './public/test.js' file, search 'readerer.addBreak' to show that part of code.
+2. Change 'new Color([255, 255, 255,0.90])' to some other RGB color.
       
 #### The App can't run after changing a new dataset:
-      1. You need to restart the server from terminal/cmd (Rerun 'npm start').
+ 1. You need to restart the server from terminal/cmd (Rerun 'npm start').
