@@ -43,5 +43,5 @@ This is a Nodejs web application using Arcgis Javascript API. It is a simple too
 1. Open './public/test.js' file, search 'readerer.addBreak' to show that part of code.
 2. Change 'new Color([255, 255, 255,0.90])' to some other RGB color.
       
-#### The App can't run after changing a new dataset:
+#### Woops, the App can't run after changing a new dataset:
  1. You need to restart the server from terminal/cmd (Rerun 'npm start').
