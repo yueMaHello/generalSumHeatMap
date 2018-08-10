@@ -104,6 +104,8 @@ function brushMap(error,sov_auto_time){
         var accessibilityResult = [];
         largestIndividualArray = findRangeForIndividualCalcultion('what');
         sort = Object.values(largestIndividualArray).sort((prev,next)=>prev-next); //from smallest to largest
+        sort = sort.map(x =>x.toFixed(2));
+
         var chunkZones = 89;        
         var symbol = new SimpleFillSymbol(); 
         var renderer = new ClassBreaksRenderer(symbol, function(feature){
@@ -114,7 +116,7 @@ function brushMap(error,sov_auto_time){
             return dataMatrix[feature.attributes.TAZ_New][selectZone];
           }
        });
-       // renderer.addBreak(-Infinity,0, new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([153, 153, 153,0.90])));
+       //legend. If you want to change legend scale or legend color, this part of code needs to be modified
        renderer.addBreak(0, sort[chunkZones], new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([255, 255, 255,0.90])));
        renderer.addBreak(sort[chunkZones], sort[2*chunkZones], new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([	249, 238, 237,0.90])));
        renderer.addBreak(sort[2*chunkZones], sort[3*chunkZones], new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([243, 224, 219,0.90])));
@@ -135,7 +137,7 @@ function brushMap(error,sov_auto_time){
        renderer.addBreak(sort[17*chunkZones], sort[18*chunkZones], new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([11, 106, 18,0.90])));
        renderer.addBreak(sort[18*chunkZones], Infinity, new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([5, 80, 15,0.90])));
        featureLayer.setRenderer(renderer);
-
+       //legend
     
         $('#legendDiv').append('<div class="legendClass" id = "legendid" </div>');  
         var legend = new Legend({
@@ -182,21 +184,21 @@ function brushMap(error,sov_auto_time){
 
 }
 
-function buildMatrixLookup(arr) {    
-    var lookup = {};
-    var indexCol = Object.keys(arr[0]).filter(k => k.match(/\s+/) !== null);
-    arr.forEach(row => {
-        var idx = row[indexCol];
-        delete row[indexCol];
-        var newRow = {};
-        for(var key in row){
-            newRow[key] = parseFloat(row[key]);
-        }
-        lookup[idx] = newRow;
-    });
-    return lookup;
-}
 
+function buildMatrixLookup(arr) {    
+  var lookup = {};
+  var index = arr.columns;
+  var verbal = index[0];
+  for(var i =0; i<arr.length;i++){
+    var k = arr[i][verbal];
+  
+    delete arr[i][verbal];
+  
+    lookup[parseInt(k)] = Object.keys(arr[i]).reduce((obj, key) => (obj[parseInt(key)] = Number(arr[i][key]),obj), {});
+  }
+
+  return lookup;
+}
 
 function findRangeForIndividualCalcultion(jobType){
   // var dict = {};
