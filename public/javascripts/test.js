@@ -102,11 +102,11 @@ function brushMap(error,csvFile){
             map.infoWindow.show(evt.screenPoint,map.getInfoWindowAnchor(evt.screenPoint));
         });
         var accessibilityResult = [];
-        largestIndividualArray = findRangeForIndividualCalcultion('what');
+        largestIndividualArray = findRangeForIndividualCalcultion();
         sort = Object.values(largestIndividualArray).sort((prev,next)=>prev-next); //from smallest to largest
-        sort = sort.map(x =>x.toFixed(2));
+        sort = sort.map(x =>x.toFixed(2)); //make legend to 2 decimal numbers.
 
-        var chunkZones = 89;        
+        var chunkZones = 89;         
         var symbol = new SimpleFillSymbol(); 
         var renderer = new ClassBreaksRenderer(symbol, function(feature){
           if(check === false){
@@ -198,7 +198,8 @@ function buildMatrixLookup(arr) {
   return lookup;
 }
 //the legend range is based on the data for zone101
-function findRangeForIndividualCalcultion(jobType){
+//you can change it to other algorithm
+function findRangeForIndividualCalcultion(){
   
   return dataMatrix['101'];
 }
