@@ -24,15 +24,13 @@ function brushMap(error,sov_auto_time){
       "dojo/dom-class",
       "esri/dijit/BasemapToggle",
       "esri/dijit/Legend",
-        "../externalJS/geojsonlayer.js",
         "esri/map", "esri/layers/FeatureLayer",
         "esri/InfoTemplate", "esri/symbols/SimpleFillSymbol", "esri/symbols/SimpleLineSymbol",
         "esri/renderers/ClassBreaksRenderer",
         "esri/Color", "dojo/dom-style", "dojo/domReady!"
     ], function(Polyline,
       Extent,domConstruct,
-      Query,Popup, PopupTemplate,domClass,BasemapToggle,Legend,
-        GeoJsonLayer,Map, FeatureLayer,
+      Query,Popup, PopupTemplate,domClass,BasemapToggle,Legend,Map, FeatureLayer,
         InfoTemplate, SimpleFillSymbol,SimpleLineSymbol,
         ClassBreaksRenderer,
         Color, domStyle
@@ -64,11 +62,14 @@ function brushMap(error,sov_auto_time){
          
         var template = new InfoTemplate();
         template.setContent(getTextContent);
-      
-        var featureLayer = new FeatureLayer("https://services8.arcgis.com/FCQ1UtL7vfUUEwH7/arcgis/rest/services/newestTAZ/FeatureServer/0?token=zwpope-UYmNeuAwyc7QdyY3CtnSR3zD05XyI45tDO27Xza7jjV6mY12x-jU6leaGFEN1DTvH092WhWyC5LmwHxpaVePomdQhkPd86OblRRtzO-LAzKP4mtjKJNEpS4XMpCYydXMlXN24O7H1MxUT99Ay_ztPJDRRU5ZO_uKZf-3IJDEEPVPSPTTYloiTYMGiMrup6UeuP_h4fhCFYtnHD2rzjAj2vRvBDSc5j0gIPIoi9iqMsBlkYatgXsV-gLj0",{
+        var featureLayer = new FeatureLayer("https://services8.arcgis.com/FCQ1UtL7vfUUEwH7/arcgis/rest/services/newestTAZ/FeatureServer/0?token=8gOmRemAl8guD3WA_rfLwe50SgsEvaZzIcXIraH9xC3NQPCLraLwcHIkz3osWU-SHUdSKO1N6rCnWDF_CzWLFlFFUCeugETS44f409SsCtX9eC-HoX0dkXZj2vQD1SsboTGNgAzLDtG-BfIv0FnlWBNqq84hC5a6e7lj2Tt1oV8V0WxGiCE7rtaXgxZr18TZur-l_T6gWW2jDh1mt5q0mqty8vc133DvOtg5JhtGm8OTdn9rYtscRKu66B153RYB",{
             mode: FeatureLayer.MODE_SNAPSHOT,
             outFields: ["*"],
-            infoTemplate: template
+    
+        });
+        var lrtFeatureLayer = new FeatureLayer("https://services8.arcgis.com/FCQ1UtL7vfUUEwH7/arcgis/rest/services/LRT/FeatureServer/0?token=8ulK33e1cubPoKiLq5MxH9EpaN_wuyYRrMTiwsYkGKnPgYFbII8tkvV5i9Dk6tz2jVqY-_Zx-0-GXY3DeSVbtpo0NlLxEjFuPwpccMNBTGZwZsVYNrqBui-6DhEyve8rnD3qGPg_2pun9hFotDWSmlWAQn41B_Sop7pr9KLSS64H_CiMRPW0GZ9Bn6gPWkR8d0CZQ6fUoctmBUJp4gvRdf6vroPETCE9zJ2OFUdPto1Xm2pxvDc7Y5mDPT_ZOXbi",{
+            mode: FeatureLayer.MODE_SNAPSHOT,
+            outFields: ["*"],
         });
         featureLayer.on('click',function(evt){
             var graphic = evt.graphic;
@@ -147,7 +148,8 @@ function brushMap(error,sov_auto_time){
       
         map.on('load',function(){
             map.addLayer(featureLayer);
-              legend.startup();
+            map.addLayer(lrtFeatureLayer)
+            legend.startup();
             featureLayer.redraw();
         });
 
@@ -201,43 +203,6 @@ function buildMatrixLookup(arr) {
 }
 
 function findRangeForIndividualCalcultion(jobType){
-  // var dict = {};
-  // var TAZ = 0;
-  // for(var k in popEmp){
-  //         dict[popEmp[k]['New Zone']] = Number(popEmp[k][jobType]);
-  // }
-  // 
-  //   // Create items array
-  // var items = Object.keys(dict).map(function(key) {
-  //   return [key, dict[key]];
-  // });
-  // 
-  // // Sort the array based on the second element
-  // items.sort(function(first, second) {
-  //   return second[1] - first[1];
-  // });
-  // while(items[items.length-1][1] === 0){ // While the last element is a 0,
-  //     items.pop();                  // Remove that last element
-  // }
-  // 
-  // TAZ = items[parseInt(items.length/22)][0];
-  // 
-  // var largestIndividualArray = individualCaculation(travelTypeDict.A_AM,jobType,TAZ);
-  
-  // var maxValue=0;
-  // var maxTaz=0;
-  // 
-  // for(var k in dataMatrix){
-  //   for(var n in dataMatrix[k]){
-  //     console.log(dataMatrix[k][n])
-  //     break;
-  //     if(dataMatrix[k][n]>maxValue){
-  //       maxValue = n;
-  //       maxTaz = k;
-  //     }
-  //   }
-  // 
-  // }
-  // console.log(k)
+
   return dataMatrix['101'];
 }

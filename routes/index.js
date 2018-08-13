@@ -4,7 +4,6 @@ var conString = "";
 var obj = "1";
 var fs = require('fs');
 
-
 function walkfolders(dir) {
     var fs = fs || require('fs'),
         files = fs.readdirSync(dir);
