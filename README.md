@@ -25,7 +25,7 @@ This is a Nodejs web application using Arcgis Javascript API. It is a simple too
 ## Use tips:
 #### If you want to make another new App renderring a new csv file at another port other than '3033':
  1. Copy and paste all the content into a new folder
- 2. Change the dataset located in 'public/data' into anther one.
+ 2. Change the csv file into a new one in 'public/data'
  3. Open 'bin/www.js' file, and search for '3033'
  4. Simply change '3033' to other number (3036, 5025, 4022 or such).
  5. Then, just follow the procedure in 'Run' section
