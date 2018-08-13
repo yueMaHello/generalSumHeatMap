@@ -1,19 +1,16 @@
 var map;
-var geoJsonLayer1;
-var SOV_AUTO_Time_AM_Cr_mf1 = '../data/'+title+'.csv';
+var csvFileName = '../data/'+title+'.csv';
 var dataMatrix;
-var popEmp;
-var travelTypeDict = {};
 var q = d3.queue();
 var check = false;
 var largestIndividualArray = [];
 var sort = [];
-var selectZone = '101'; //default
-var hoverZone;
-console.log(title+'.csv')
-q.defer(d3.csv,SOV_AUTO_Time_AM_Cr_mf1).await(brushMap);
-function brushMap(error,sov_auto_time){
-    dataMatrix = buildMatrixLookup(sov_auto_time);
+var selectZone = '101'; //default selectZone when you open the browser. 
+var hoverZone; //mouse-over zone
+console.log(title+'.csv');
+q.defer(d3.csv,csvFileName).await(brushMap);
+function brushMap(error,csvFile){
+    dataMatrix = buildMatrixLookup(csvFile);
     require([
       "esri/geometry/Polyline",
       "esri/geometry/Extent",
@@ -62,27 +59,29 @@ function brushMap(error,sov_auto_time){
          
         var template = new InfoTemplate();
         template.setContent(getTextContent);
-        var featureLayer = new FeatureLayer("https://services8.arcgis.com/FCQ1UtL7vfUUEwH7/arcgis/rest/services/newestTAZ/FeatureServer/0?token=8gOmRemAl8guD3WA_rfLwe50SgsEvaZzIcXIraH9xC3NQPCLraLwcHIkz3osWU-SHUdSKO1N6rCnWDF_CzWLFlFFUCeugETS44f409SsCtX9eC-HoX0dkXZj2vQD1SsboTGNgAzLDtG-BfIv0FnlWBNqq84hC5a6e7lj2Tt1oV8V0WxGiCE7rtaXgxZr18TZur-l_T6gWW2jDh1mt5q0mqty8vc133DvOtg5JhtGm8OTdn9rYtscRKu66B153RYB",{
+        //travelZonelayer
+        var travelZoneLayer = new FeatureLayer("https://services8.arcgis.com/FCQ1UtL7vfUUEwH7/arcgis/rest/services/newestTAZ/FeatureServer/0?token=8gOmRemAl8guD3WA_rfLwe50SgsEvaZzIcXIraH9xC3NQPCLraLwcHIkz3osWU-SHUdSKO1N6rCnWDF_CzWLFlFFUCeugETS44f409SsCtX9eC-HoX0dkXZj2vQD1SsboTGNgAzLDtG-BfIv0FnlWBNqq84hC5a6e7lj2Tt1oV8V0WxGiCE7rtaXgxZr18TZur-l_T6gWW2jDh1mt5q0mqty8vc133DvOtg5JhtGm8OTdn9rYtscRKu66B153RYB",{
             mode: FeatureLayer.MODE_SNAPSHOT,
             outFields: ["*"],
     
         });
+        //LRT layer
         var lrtFeatureLayer = new FeatureLayer("https://services8.arcgis.com/FCQ1UtL7vfUUEwH7/arcgis/rest/services/LRT/FeatureServer/0?token=8ulK33e1cubPoKiLq5MxH9EpaN_wuyYRrMTiwsYkGKnPgYFbII8tkvV5i9Dk6tz2jVqY-_Zx-0-GXY3DeSVbtpo0NlLxEjFuPwpccMNBTGZwZsVYNrqBui-6DhEyve8rnD3qGPg_2pun9hFotDWSmlWAQn41B_Sop7pr9KLSS64H_CiMRPW0GZ9Bn6gPWkR8d0CZQ6fUoctmBUJp4gvRdf6vroPETCE9zJ2OFUdPto1Xm2pxvDc7Y5mDPT_ZOXbi",{
             mode: FeatureLayer.MODE_SNAPSHOT,
             outFields: ["*"],
         });
-        featureLayer.on('click',function(evt){
+        travelZoneLayer.on('click',function(evt){
             var graphic = evt.graphic;
             selectZone = graphic.attributes.TAZ_New;
             var query = new Query();
             query.geometry = pointToExtent(map, event.mapPoint, 10);
-            var deferred = featureLayer.selectFeatures(query,
-              FeatureLayer.SELECTION_NEW);
+            var deferred = travelZoneLayer.selectFeatures(query,
+              travelZoneLayer.SELECTION_NEW);
             map.infoWindow.setFeatures([deferred]);
             map.infoWindow.show(event.mapPoint);
-            featureLayer.redraw();
+            travelZoneLayer.redraw();
         })
-        featureLayer.on('mouse-over',function(evt){
+        travelZoneLayer.on('mouse-over',function(evt){
             var graphic = evt.graphic;
             hoverZone = graphic.attributes.TAZ_New;
             var access;
@@ -137,20 +136,20 @@ function brushMap(error,sov_auto_time){
        renderer.addBreak(sort[16*chunkZones], sort[17*chunkZones], new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([	37, 121, 24,0.90])));
        renderer.addBreak(sort[17*chunkZones], sort[18*chunkZones], new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([11, 106, 18,0.90])));
        renderer.addBreak(sort[18*chunkZones], Infinity, new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([5, 80, 15,0.90])));
-       featureLayer.setRenderer(renderer);
+       travelZoneLayer.setRenderer(renderer);
        //legend
     
         $('#legendDiv').append('<div class="legendClass" id = "legendid" </div>');  
         var legend = new Legend({
           map: map,
-          layerInfos: [{ layer: featureLayer, title: 'Legend' }]
+          layerInfos: [{ layer: travelZoneLayer, title: 'Legend' }]
         }, 'legendid');
       
         map.on('load',function(){
-            map.addLayer(featureLayer);
-            map.addLayer(lrtFeatureLayer)
+            map.addLayer(travelZoneLayer);
+            map.addLayer(lrtFeatureLayer);
             legend.startup();
-            featureLayer.redraw();
+            travelZoneLayer.redraw();
         });
 
 
@@ -172,21 +171,18 @@ function brushMap(error,sov_auto_time){
         
             if($("#interact").is(':checked')){
                 check = true;
-                featureLayer.redraw();  
+                travelZoneLayer.redraw();  
             }
             else{
               check = false;
-              featureLayer.redraw();
+              travelZoneLayer.redraw();
 
             }
         });
-
     });
-
-
 }
 
-
+//convert csv array into good format(zone-to-zone).
 function buildMatrixLookup(arr) {    
   var lookup = {};
   var index = arr.columns;
@@ -201,8 +197,8 @@ function buildMatrixLookup(arr) {
 
   return lookup;
 }
-
+//the legend range is based on the data for zone101
 function findRangeForIndividualCalcultion(jobType){
-
+  
   return dataMatrix['101'];
 }
