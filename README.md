@@ -16,19 +16,19 @@ This is a Nodejs web application using Arcgis Javascript API. It is a simple too
 1. Browse to the root of the folder
 2. Open the terminal/cmd and go to the root of the App './generalHeatmap'. 
 3. Put your csv data into './public/data' folder. Only one csv file is allowed in that folder, so you need to delete any other csv file. The data should be a zone-to-zone matrix. You can name the csv file to anything you want, and the App will show you a title with that csv file name. For example, if you put 'Auto Travel.csv' into the data folder, then the App will be named as 'Auto Travel' when browsing it.
-4. The data must have the same format as the example data located in './public/dataExample/Auto Time.csv'. If you browse the csv file through Excel, [0,0] should be empty, but not something like 'z/z'. If your [0,0] is not empty, you have to manually delete it.
+4. The data must have the same format as the example data located in './public/dataExample/Auto Time.csv'. If you browse the csv file through Excel, [0,0] can be empty or some text.
 ## Run
 1. Use terminal/cmd to go to the root of the App './generalHeatmap'. 
 2. Type 'npm start'
-2. Browse 'http://localhost:3033'
+2. Browse 'http://localhost:3033' or http://162.106.202.155:3033/
 
 ## Use tips:
-#### If you want to duplicate the App, change the dataset, and render the App at another port other than '3033':
+#### If you want to make another new App renderring a new csv file at another port other than '3033':
  1. Copy and paste all the content into a new folder
- 2. Change the dataset located in 'public/data' into anther one.
+ 2. Change the csv file into a new one in 'public/data'
  3. Open 'bin/www.js' file, and search for '3033'
  4. Simply change '3033' to other number (3036, 5025, 4022 or such).
- 5. Then, just follow the procedure in 'Run'
+ 5. Then, just follow the procedure in 'Run' section
 
 #### If you want to update the TravelZoneLayer shape file:
  1. The map layer is not stored in localhost. It is stored in the arcgis online server.
