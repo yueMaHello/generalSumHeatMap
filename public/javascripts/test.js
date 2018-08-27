@@ -32,7 +32,6 @@ function brushMap(error,csvFile){
         ClassBreaksRenderer,
         Color, domStyle
     ) {
-        var connections = [];
         
         var popup = new Popup({  
           fillSymbol:
@@ -49,7 +48,7 @@ function brushMap(error,csvFile){
             slider: false
         });
         map.setInfoWindowOnClick(true);
-        
+        //toggle the basemap
         var toggle = new BasemapToggle({
            map: map,
            basemap: "streets"
@@ -60,16 +59,17 @@ function brushMap(error,csvFile){
         var template = new InfoTemplate();
         template.setContent(getTextContent);
         //travelZonelayer
-        var travelZoneLayer = new FeatureLayer("https://services8.arcgis.com/FCQ1UtL7vfUUEwH7/arcgis/rest/services/newestTAZ/FeatureServer/0?token=8gOmRemAl8guD3WA_rfLwe50SgsEvaZzIcXIraH9xC3NQPCLraLwcHIkz3osWU-SHUdSKO1N6rCnWDF_CzWLFlFFUCeugETS44f409SsCtX9eC-HoX0dkXZj2vQD1SsboTGNgAzLDtG-BfIv0FnlWBNqq84hC5a6e7lj2Tt1oV8V0WxGiCE7rtaXgxZr18TZur-l_T6gWW2jDh1mt5q0mqty8vc133DvOtg5JhtGm8OTdn9rYtscRKu66B153RYB",{
+        var travelZoneLayer = new FeatureLayer("https://services8.arcgis.com/FCQ1UtL7vfUUEwH7/arcgis/rest/services/newestTAZ/FeatureServer/0",{
             mode: FeatureLayer.MODE_SNAPSHOT,
             outFields: ["*"],
     
         });
         //LRT layer
-        var lrtFeatureLayer = new FeatureLayer("https://services8.arcgis.com/FCQ1UtL7vfUUEwH7/arcgis/rest/services/LRT/FeatureServer/0?token=fq-1SwmcgAepCE9kB7p1ySJqJl4Tj4PVlZ1Bcbso2r9RBv1BCdET4mcpDLteGYoyOFSkDrwBRilzkmzMzr5KyZKLhqCULVNivn-LyH2WXxPESB1NRpyXQZz9NiNEdGGXdB3zQM1cH17XBTu8-keOmeUMh0UaJQ7VGweheUREf9wPsPdThCFpIwfFZ-ZrKuatP4JDGf8qZLZUQpYii04YFz_Po6MOQmuWcKAVMbFYIWIQTiSXgGJRiXA0BUpzOio3",{
+        var lrtFeatureLayer = new FeatureLayer("https://services8.arcgis.com/FCQ1UtL7vfUUEwH7/arcgis/rest/services/LRT/FeatureServer/0",{
             mode: FeatureLayer.MODE_SNAPSHOT,
             outFields: ["*"],
         });
+        //click on travelZoneLayer event
         travelZoneLayer.on('click',function(evt){
             var graphic = evt.graphic;
             selectZone = graphic.attributes.TAZ_New;
@@ -81,6 +81,7 @@ function brushMap(error,csvFile){
             map.infoWindow.show(event.mapPoint);
             travelZoneLayer.redraw();
         })
+        //mouse over event
         travelZoneLayer.on('mouse-over',function(evt){
             var graphic = evt.graphic;
             hoverZone = graphic.attributes.TAZ_New;
@@ -101,6 +102,7 @@ function brushMap(error,csvFile){
             }
             map.infoWindow.show(evt.screenPoint,map.getInfoWindowAnchor(evt.screenPoint));
         });
+        //adjust the legend range dynamically based on current matrix 
         var accessibilityResult = [];
         largestIndividualArray = findRangeForIndividualCalcultion();
         sort = Object.values(largestIndividualArray).sort((prev,next)=>prev-next); //from smallest to largest
@@ -137,8 +139,7 @@ function brushMap(error,csvFile){
        renderer.addBreak(sort[17*chunkZones], sort[18*chunkZones], new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([11, 106, 18,0.90])));
        renderer.addBreak(sort[18*chunkZones], Infinity, new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([5, 80, 15,0.90])));
        travelZoneLayer.setRenderer(renderer);
-       //legend
-    
+       //legend  
         $('#legendDiv').append('<div class="legendClass" id = "legendid" </div>');  
         var legend = new Legend({
           map: map,
@@ -167,8 +168,8 @@ function brushMap(error,csvFile){
                           "<i>" + accessibilityResult[graphic.attributes.TAZ_New] + "</i>";
           return  speciesName;
         }
+        //'origin to destination' or 'destination to origin
         $("#interact").click(function(e, parameters) {
-        
             if($("#interact").is(':checked')){
                 check = true;
                 travelZoneLayer.redraw();  
@@ -200,6 +201,5 @@ function buildMatrixLookup(arr) {
 //the legend range is based on the data for zone101
 //you can change it to other algorithm
 function findRangeForIndividualCalcultion(){
-  
   return dataMatrix['101'];
 }

@@ -29,5 +29,9 @@
     "sequelize": "4.37.10",
     "socket.io-stream": "^0.9.1",
     "topojson": ">=1.6.6 <2"
+  },
+  "devDependencies": {
+    "testcafe": "^0.21.1",
+    "testcafe-live": "^0.1.3"
   }
 }
