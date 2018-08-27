@@ -27,12 +27,12 @@ This is a Nodejs web application using Arcgis Javascript API. It is a simple too
  1. Copy and paste all the content into a new folder
  2. Change the csv file into a new one in 'public/data'
  3. Open 'bin/www.js' file, and search for '3033'
- 4. Simply change '3033' to other number (3036, 5025, 4022 or such).
- 5. Then, just follow the procedure in 'Run' section
+ 4. Simply change '3033' to another four-digits number (3036, 5025, 4022 or such).
+ 5. Then, just follow the procedure in the 'Run' section
 
 #### If you want to update the TravelZoneLayer shape file:
  1. The map layer is not stored in localhost. It is stored in the arcgis online server.
- 2. In './public/javascript/test.js', you can find the current travel zone layer: 'https://services8.arcgis.com/FCQ1UtL7vfUUEwH7/arcgis/rest/services/newestTAZ/FeatureServer/0?token=8gOmRemAl8guD3WA_rfLwe50SgsEvaZzIcXIraH9xC3NQPCLraLwcHIkz3osWU-SHUdSKO1N6rCnWDF_CzWLFlFFUCeugETS44f409SsCtX9eC-HoX0dkXZj2vQD1SsboTGNgAzLDtG-BfIv0FnlWBNqq84hC5a6e7lj2Tt1oV8V0WxGiCE7rtaXgxZr18TZur-l_T6gWW2jDh1mt5q0mqty8vc133DvOtg5JhtGm8OTdn9rYtscRKu66B153RYB'. If you want to change it to another layer, you can create you own arcgis online account and upload the layer to the arcgis server. You need to replace the url into a new one. You can also ask Sandeep to access Yue Ma's arcgis account.
+ 2. In './public/javascript/test.js', you can find the current travel zone layer: 'https://services8.arcgis.com/FCQ1UtL7vfUUEwH7/arcgis/rest/services/newestTAZ/FeatureServer/0'. If you want to change it to another layer, you can create you own arcgis online account and upload the layer to the arcgis server. You need to replace the url into a new one. You can also ask Sandeep to access Yue Ma's arcgis account.
 #### If you want to change the legend:
 1. Open './public/test.js' file, search 'readerer.addBreak' to show that part of code.
 2. Right now, the break points all are calculated based on data of zone[101]. It can adjust the legend to suit different dataset. If you want to change the break points, you could just manually change 'sort[chunkZone]' to some specific value. 
