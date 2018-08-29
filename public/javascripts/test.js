@@ -55,7 +55,7 @@ function brushMap(error,OtoD,DtoO){
 
         //travelZonelayer
         
-       var featureLayer = new FeatureLayer("https://services8.arcgis.com/FCQ1UtL7vfUUEwH7/arcgis/rest/services/newestTAZ/FeatureServer/0",{
+       var travelZonelayer = new FeatureLayer("https://services8.arcgis.com/FCQ1UtL7vfUUEwH7/arcgis/rest/services/newestTAZ/FeatureServer/0",{
            mode: FeatureLayer.MODE_SNAPSHOT,
            outFields: ["*"],
 
@@ -67,13 +67,13 @@ function brushMap(error,OtoD,DtoO){
         });
         changeScale()
         map.on('load',function(){
-            map.addLayer(featureLayer);
+            map.addLayer(travelZonelayer);
             map.addLayer(lrtFeatureLayer);
             legend.startup();
-            featureLayer.redraw();
+            travelZonelayer.redraw();
         });
 
-        featureLayer.on('mouse-over',function(evt){
+        travelZonelayer.on('mouse-over',function(evt){
             var graphic = evt.graphic;
             hoverZone = graphic.attributes.TAZ_New;
             var access;
@@ -98,7 +98,7 @@ function brushMap(error,OtoD,DtoO){
         $('#legendDiv').append('<div class="legendClass" id = "legendid" </div>');  
         var legend = new Legend({
           map: map,
-          layerInfos: [{ layer: featureLayer, title: 'Legend' }]
+          layerInfos: [{ layer: travelZonelayer, title: 'Legend' }]
         }, 'legendid');
 
         function pointToExtent (map, point, toleranceInPixel) {
@@ -116,12 +116,12 @@ function brushMap(error,OtoD,DtoO){
             if($("#interact").is(':checked')){
                 check = true;
                 changeScale();
-                featureLayer.redraw();  
+                travelZonelayer.redraw();  
             }
             else{
               check = false;
               changeScale();
-              featureLayer.redraw();
+              travelZonelayer.redraw();
 
             }
         });
@@ -170,9 +170,9 @@ function brushMap(error,OtoD,DtoO){
               renderer.addBreak(valueArray[16*chunksize], valueArray[17*chunksize], new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([	37, 121, 24,0.90])));
               renderer.addBreak(valueArray[17*chunksize], valueArray[18*chunksize], new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([11, 106, 18,0.90])));
               renderer.addBreak(valueArray[18*chunksize], Infinity, new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([5, 80, 15,0.90])));
-              featureLayer.setRenderer(renderer);      
+              travelZonelayer.setRenderer(renderer);      
 
-              featureLayer.redraw();
+              travelZonelayer.redraw();
             }
             
     });
