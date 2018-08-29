@@ -33,6 +33,17 @@ h1{
   transition: .4s;
   z-index:50;
 }
+#sliderNote{
+  position:absolute;
+  z-index:50;
+  left: 60px;
+  color: #bbbbbb;
+  float: left;
+  -webkit-text-stroke-width: 0.25px;
+  -webkit-text-stroke-color: #494949;
+  display:inline;
+
+}
 
 .slider:before {
   position: absolute;

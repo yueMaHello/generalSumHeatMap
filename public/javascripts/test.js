@@ -115,11 +115,15 @@ function brushMap(error,OtoD,DtoO){
         $("#interact").click(function(e, parameters) {
             if($("#interact").is(':checked')){
                 check = true;
+                $('#sliderNote').html("D&nbspto&nbspO");
+
                 changeScale();
                 travelZonelayer.redraw();  
             }
             else{
               check = false;
+              $('#sliderNote').html("O&nbspto&nbspD");
+
               changeScale();
               travelZonelayer.redraw();
 
