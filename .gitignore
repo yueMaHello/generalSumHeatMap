@@ -1,5 +1,4 @@
-/public/data/*
-*.csv
+
 .DS_Store
 /node_modules
 ve/

@@ -13,11 +13,12 @@ function walkfolders(dir) {
     });
     return filelist;
 }
-var csvFileList = walkfolders('./public/data');
-var appName = csvFileList[0].split('.csv')[0];
+var OtoDFile = walkfolders('./public/data/OtoD')[0];
+var DtoOFile = walkfolders('./public/data/DtoO')[0];
+var appName = OtoDFile.split('_')[0];
 
 router.get('/', function(req, res, next) {
-    res.render('index', { title: appName});
+    res.render('index', { title: appName, OtoDFile:OtoDFile,DtoOFile:DtoOFile});
 });
 
 module.exports = router;
