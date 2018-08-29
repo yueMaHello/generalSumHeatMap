@@ -65,7 +65,7 @@ function brushMap(error,OtoD,DtoO){
             mode: FeatureLayer.MODE_SNAPSHOT,
             outFields: ["*"],
         });
-        changeScale()
+        changeScale();
         map.on('load',function(){
             map.addLayer(travelZonelayer);
             map.addLayer(lrtFeatureLayer);
@@ -100,16 +100,6 @@ function brushMap(error,OtoD,DtoO){
           map: map,
           layerInfos: [{ layer: travelZonelayer, title: 'Legend' }]
         }, 'legendid');
-
-        function pointToExtent (map, point, toleranceInPixel) {
-          var pixelWidth = map.extent.getWidth() / map.width;
-          var toleranceInMapCoords = toleranceInPixel * pixelWidth;
-          return new Extent(point.x - toleranceInMapCoords,
-                            point.y - toleranceInMapCoords,
-                            point.x + toleranceInMapCoords,
-                            point.y + toleranceInMapCoords,
-                            map.spatialReference);
-        }
     
         //'origin to destination' or 'destination to origin
         $("#interact").click(function(e, parameters) {
