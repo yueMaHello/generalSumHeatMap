@@ -22,10 +22,11 @@ This is a Nodejs web application using Arcgis Javascript API. It is a simple too
 2. Type 'npm start'
 2. Browse 'http://localhost:3039' or http://162.106.202.155:3039/
 
-## Use tips:
+## Tips:
 #### If you want to replace the current dataset:
- 1. In the './public/data' folder, you can find two subfolders ('./DtoO' and './OtoD'). You should put your newest dataset into this two subfolders. If it is a 'Origin to Destination' file, you should put it into './OtoD' folder. If it is a 'Destination to Origin' file, you should put it into './DtoO' folder. You should not change the dataset format. There is no header row in the CSV file. 
- 2. You may observe that the dataset name in the example is 'test_D.csv' and 'test_O.csv'. It means you should also follow this naming rule. The app will renew its name based on the csv file you provide, for example, if you put 'Logsum_D.csv' file into './public/data/DtoO' folder, the app will treat 'Logsum' as its name. The dash line '_' in the name is very important, and don't miss it.  
+ 1. In the './public/data' folder, you can find two subfolders ('./DtoO' and './OtoD'). You should put your newest dataset into these two subfolders. If it is an 'Origin to Destination' file, you should put it into './OtoD' folder. If it is a 'Destination to Origin' file, you should put it into './DtoO' folder. You should not change the dataset format (no header row in the CSV file). 
+ 2. You may observe that the dataset name in the example is 'test_D.csv' and 'test_O.csv'. It means you should also follow this naming rule. The app will renew its name based on the csv file you provide, for example, if you put 'Logsum_D.csv' file into './public/data/DtoO' folder, the app will treat 'Logsum' as its name. The dash line '_' in the name is very important, please don't miss it.  
+ 3. After you change the dataset, you should go to the terminal, terminate it if it is running, and rerun it by typing 'npm start'. If you forget to do this step, the app will run into error.
 #### If you want to make another new App renderring a new csv file at another port other than '3039':
  1. Copy and paste all the content into a new folder
  2. Open './generalSumHeatMap/bin/www.js' file, and search for '3039'
