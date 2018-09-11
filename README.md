@@ -1,5 +1,5 @@
 # General Static Heatmap
-This is a Nodejs web application using Arcgis Javascript API. It is a simple tool which can be modified to display any 'zone,value' vector.
+This is a Nodejs web application using Arcgis Javascript API. It is a simple tool which can be modified to display any csv file with 'zone, value' columns. 
 ## Set Up:
 #### From Github:
 1. If you haven't downloaded Nodejs on your computer, you need to download it and add it into PATH.
@@ -24,10 +24,10 @@ This is a Nodejs web application using Arcgis Javascript API. It is a simple too
 ## Tips:
 #### If you want to replace the current dataset:
  1. In the './public/data' folder, you can find two subfolders ('./DtoO' and './OtoD'). You should put your newest dataset into these two subfolders. If it is an 'Origin to Destination' file, you should put it into './OtoD' folder. If it is a 'Destination to Origin' file, you should put it into './DtoO' folder. You should not change the dataset format (no header row in the CSV file).
- 2. You may observe that the dataset name in the example is 'test_D.csv' and 'test_O.csv'. It means you should also follow this naming rule. The app will renew its name based on the csv file you provide, for example, if you put 'Logsum_D.csv' file into './public/data/DtoO' folder, the app will treat 'Logsum' as its name. The dash line '_' in the name is very important, please don't miss it.  
+ 2. You may observe that the dataset name in the example is 'test_D.csv' and 'test_O.csv'. It means you should also follow this naming rule. The app will renew its name based on the csv file you provide, for example, if you put 'Logsum_D.csv' file into './public/data/DtoO' folder, the app will treat 'Logsum' as its name. The dash line ' _ ' in the name is very important, please don't miss it.  
  3. After you change the dataset, you should go to the terminal, terminate it if it is running, and rerun it by typing 'npm start'. If you forget to do this step, the app will run into error.
  4. Only one csv file is allowed in each subfolders.
- 
+ 5. There are examples storing in './public/dataExample/'. If you copy and paste the content in this folder to '.public/data', the app will run properly.
 #### If you want to make another new App renderring a new csv file at another port other than '3039':
  1. Copy and paste all the content into a new folder
  2. Open './generalSumHeatMap/bin/www.js' file, and search for '3039'
