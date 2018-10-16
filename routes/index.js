@@ -13,6 +13,7 @@ function walkfolders(dir) {
     });
     return filelist;
 }
+//read the file name
 var OtoDFile = walkfolders('./public/data/OtoD')[0];
 var DtoOFile = walkfolders('./public/data/DtoO')[0];
 var appName = OtoDFile.split('_')[0];

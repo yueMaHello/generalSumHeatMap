@@ -1,11 +1,19 @@
+/*
+This is a general summation heatmap which can be used to serve any zone-to-value matrices.
+It is different from 'gereralHeatmap'. GeneralHeatMap is a dynamic one showing zone-to-zone gravity model.
+However, this is a static one using zone-value matrices.
+So it means the 2d matrix will need to be converted to 1d csv file before using this app.
+There are two csv files needed at the same time. One is Original to Destination. Another one is Destination to Original.
+The './dataExample' folder shows example data and you need to follow.
+The name of the csv files are '***_D.csv' and '***_O.csv'.The '***' will automatically be used as your application's title.
+If you have changed your dataset, please restart the web sever through the terminal; otherwise, the app will die...
+The scale is dynamically adjusted based on the csv file you provided.
+ */
 var map;
-// var csvFileName = '../data/'+title+'.csv';
 var OtoDDataMatrix;
 var DtoODataMatrix;
 var q = d3.queue();
 var check = false;
-var largestIndividualArray = [];
-var selectZone = '101'; //default selectZone when you open the browser. 
 var hoverZone; //mouse-over zone
 var DtoOFileName= '../data/DtoO/'+DtoOFile;
 var OtoDFileName = '../data/OtoD/'+OtoDFile;
@@ -144,7 +152,7 @@ function brushMap(error,OtoD,DtoO){
       
                   }
               });
-              
+              //add breakpoints and color
               renderer.addBreak(-Infinity, valueArray[chunksize], new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([255, 255, 255,0.90])));
               renderer.addBreak(valueArray[chunksize], valueArray[2*chunksize], new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([	249, 238, 237,0.90])));
               renderer.addBreak(valueArray[2*chunksize],valueArray[3*chunksize], new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([243, 224, 219,0.90])));
