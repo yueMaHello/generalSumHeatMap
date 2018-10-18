@@ -1,5 +1,5 @@
 # General Static Heatmap
-This is a Nodejs web application using Arcgis Javascript API. It is a simple tool which can be modified to display any csv file with 'zone, value' columns. The map is not dynamic. What the user can do is just to click the slider on the left corner to switch between two sets of data.
+This is a Nodejs web application using Arcgis Javascript API. It is a simple tool which can be modified to display any csv file with 'zone, value' columns. The map is not dynamic. The user can click the slider on the left corner to switch between two sets of data.
 ## Set Up:
 #### From Github:
 1. If you haven't downloaded Nodejs on your computer, you need to download it and add it into PATH.
