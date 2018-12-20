@@ -10,6 +10,7 @@ If you have changed your dataset, please restart the web sever through the termi
 The scale is dynamically adjusted based on the csv file you provided.
  */
 var map;
+var travelZoneLayerID = 'TAZ_New';
 var OtoDDataMatrix;
 var DtoODataMatrix;
 var q = d3.queue();
@@ -83,7 +84,7 @@ function brushMap(error,OtoD,DtoO){
 
         travelZonelayer.on('mouse-over',function(evt){
             var graphic = evt.graphic;
-            hoverZone = graphic.attributes.TAZ_New;
+            hoverZone = graphic.attributes[travelZoneLayerID];
             var access;
             if(check === false){
               access = OtoDDataMatrix[hoverZone];
@@ -142,17 +143,21 @@ function brushMap(error,OtoD,DtoO){
                 //if 'var check' is false, then show origin to destination
                 if(check === false){
             
-                  return OtoDDataMatrix[feature.attributes.TAZ_New];
+                  return OtoDDataMatrix[feature.attributes[travelZoneLayerID]];
                 }
                 //else, destination to origin
                 else{
-                  //return dataMatrix[feature.attributes.TAZ_New][selectZone];
-              
-                    return DtoODataMatrix[feature.attributes.TAZ_New];
+
+                    return DtoODataMatrix[feature.attributes[travelZoneLayerID]];
       
                   }
               });
               //add breakpoints and color
+            //if there is black holes on the map, or there is undefined in Legend, that means that the # of categories below is inapproriate.
+            // debug: console.log
+              //console.log(valueArray)
+            //console.log(valueArray[18*chunksize])
+            //console.log(18*chunksize)
               renderer.addBreak(-Infinity, valueArray[chunksize], new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([255, 255, 255,0.90])));
               renderer.addBreak(valueArray[chunksize], valueArray[2*chunksize], new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([	249, 238, 237,0.90])));
               renderer.addBreak(valueArray[2*chunksize],valueArray[3*chunksize], new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,0,0,0.1]),1)).setColor(new Color([243, 224, 219,0.90])));
